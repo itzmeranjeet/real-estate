@@ -31,13 +31,13 @@ const Header = () => {
             {currentUser ? (
               <div className='user-info flex' style={{ gap: "10px", alignItems: "center" }}>
                 <span style={{ fontWeight: "600", color: "#2d3436", fontSize: "14px" }}>Hi, {currentUser.name.split(" ")[0]}</span>
-                <button className='btn1' onClick={handleLogout} style={{ border: "none" }}>
+                <button className='header-btn' onClick={handleLogout} style={{ border: "none" }}>
                   <i className='fa fa-sign-out'></i> Log Out
                 </button>
               </div>
             ) : (
-              <button className='btn1' onClick={() => setActiveModal("login")} style={{ border: "none" }}>
-                <i className='fa fa-sign-in'></i> Sign In
+              <button className='header-btn' onClick={() => setActiveModal("login")} style={{ border: "none" }}>
+                <i className='fa fa-sign-in p-0'></i> Sign In
               </button>
             )}
           </div>

@@ -65,3 +65,26 @@ header .toggle {
     color: #fff;
   }
 }
+
+.header-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: 500;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background: #27ae60;
+  color: #fff;
+  transition: 0.3s;
+}
+
+.header-btn:hover {
+  background: #219150;
+}
+
+.header-btn i {
+  font-size: 13px;
+}

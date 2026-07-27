@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 
-const PropertyDetailsModal = ({ selectedProperty, currentUser, closeModal, showToast }) => {
+const PropertyDetailsModal = ({ selectedProperty, user, closeModal, showToast }) => {
   const [bookingName, setBookingName] = useState("")
   const [bookingEmail, setBookingEmail] = useState("")
   const [bookingDate, setBookingDate] = useState("")
@@ -12,11 +12,11 @@ const PropertyDetailsModal = ({ selectedProperty, currentUser, closeModal, showT
   useEffect(() => {
     setBookingSuccess(false)
     setIsBookingSubmitting(false)
-    setBookingName(currentUser ? currentUser.name : "")
-    setBookingEmail(currentUser ? currentUser.email : "")
+    setBookingName(user ? user.name : "")
+    setBookingEmail(user ? user.email : "")
     setBookingDate("")
     setBookingMsg("")
-  }, [selectedProperty, currentUser])
+  }, [selectedProperty, user])
 
   if (!selectedProperty) return null
 
@@ -35,7 +35,7 @@ const PropertyDetailsModal = ({ selectedProperty, currentUser, closeModal, showT
   }
 
   return (
-    <div className="modal-content wide">
+    <div className="modal-content wide ">
       <button className="modal-close" onClick={closeModal}>
         <i className="fa fa-times"></i>
       </button>

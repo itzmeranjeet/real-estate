@@ -14,22 +14,27 @@ const LoginModal = ({ closeModal, handleLogin, showToast }) => {
   try {
     if (loginTab === "login") {
       if (!username || !password) {
-        showToast("Please enter username and password", "error");
+        showToast("Please enter email and password", "error");
         return;
       }
 
       const response = await loginUser({
-        email: username, // username field is used as email
+        email: username,
         password,
       });
 
-      if (response.success) {
-        showToast(response.message, "success");
-        handleLogin(response.user.full_name);
-        closeModal();
-      } else {
+      if (!response.success) {
         showToast(response.message, "error");
+        return;
       }
+
+      localStorage.setItem("user", JSON.stringify(response.user));
+
+      handleLogin(response.user.full_name);
+
+      showToast("Login Successful", "success");
+
+      closeModal();
     } else {
       if (!registerName || !email || !password) {
         showToast("Please fill in all registration fields", "error");

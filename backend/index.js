@@ -4,6 +4,9 @@ import dotenv from "dotenv";
 import pool from "./config/db.js";
 import authRoutes from "./routes/authRoutes.js";
 import propertyRoutes from "./routes/propertyRoutes.js";
+import pricingRoutes from "./routes/pricingPlan.js";
+import agentsRoutes from "./routes/agentsRoutes.js";
+
 
 
 dotenv.config();
@@ -36,6 +39,10 @@ app.get("/api/test", (req, res) => {
 });
 app.use("/api/auth", authRoutes);
 app.use("/api/properties", propertyRoutes);
+app.use("/api/pricing-plans", pricingRoutes);
+app.use("/api/agents", agentsRoutes);
+
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {

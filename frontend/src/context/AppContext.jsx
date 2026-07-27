@@ -52,21 +52,30 @@ export const AppProvider = ({ children }) => {
   }, [toast])
 
   const toggleFavorite = (id) => {
-    if (favorites.includes(id)) {
-      setFavorites(favorites.filter((favId) => favId !== id))
-      showToast("Removed from My List", "info")
-    } else {
-      setFavorites([...favorites, id])
+    setFavorites((prev) => {
+      if (prev.includes(id)) {
+        showToast("Removed from My List", "info")
+        return prev.filter((favId) => favId !== id)
+      }
+
       showToast("Added to My List", "success")
+      return [...prev, id]
+    })
+  }
+
+  const handleLogin = (user) => {
+    console.log("user", user)
+    const loggedInUser = {
+      name: user?.name || "Ikra",
+      email: user?.email || "ikra@example.com",
     }
-  }
 
-  const handleLogin = (username) => {
-    setCurrentUser({ name: username || "Arbaaz Chouhan", email: "arbaaz@example.com" })
+
+
+    setCurrentUser(loggedInUser)
     setActiveModal(null)
-    showToast(`Welcome back, ${username || "Arbaaz"}!`, "success")
+    showToast(`Welcome back, ${loggedInUser.name}!`, "success")
   }
-
   const handleLogout = () => {
     setCurrentUser(null)
     showToast("Logged out successfully", "info")

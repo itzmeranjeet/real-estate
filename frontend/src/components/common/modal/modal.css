@@ -17,6 +17,7 @@
 
 /* Modal Content Container */
 .modal-content {
+  margin-top: 100px;
   background: #fff;
   border-radius: 12px;
   width: 90%;
@@ -40,12 +41,12 @@
 /* Close Button */
 .modal-close {
   position: absolute;
-  top: 15px;
-  right: 15px;
-  background: #f1f2f6;
+  top: 1px;
+  right: -15px;
+  background: none;
   border: none;
-  width: 36px;
-  height: 36px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   cursor: pointer;
   display: flex;
@@ -53,15 +54,13 @@
   justify-content: center;
   font-size: 18px;
   color: #2d3436;
-  transition: all 0.2s ease;
   z-index: 10;
 }
 
-.modal-close:hover {
+/* .modal-close:hover {
   background: #27ae60;
   color: #fff;
-  transform: rotate(90deg);
-}
+} */
 
 /* Modal Body */
 .modal-body {
@@ -254,14 +253,17 @@
     transform: scale(0.3);
     opacity: 0;
   }
+
   50% {
     transform: scale(1.05);
     opacity: 0.8;
   }
+
   70% {
     transform: scale(0.9);
     opacity: 0.9;
   }
+
   100% {
     transform: scale(1);
     opacity: 1;
@@ -441,8 +443,13 @@
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /* Card hover cursor */
@@ -453,7 +460,7 @@
 
 .recent .content .box:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
 }
 
 .recent .content .box .img {

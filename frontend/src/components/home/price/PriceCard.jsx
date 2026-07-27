@@ -1,58 +1,89 @@
-import React, { useContext } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { price } from "../../data/Data"
 import { AppContext } from "../../../context/AppContext"
+import { getPricingPlans } from "../../../api/pricingPlan"
 
 const PriceCard = () => {
   const { setActiveModal, setSelectedPlan } = useContext(AppContext)
+  const [plans, setPlans] = useState([]);
 
+  useEffect(() => {
+    const fetchPlans = async () => {
+      try {
+        const response = await getPricingPlans();
+
+        console.log("response ----------------", response);
+
+        setPlans(response.data);
+
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchPlans();
+  }, []);
+  console.log("plans", plans);
   return (
     <>
-      <div className='content flex mtop'>
-        {price.map((item, index) => (
-          <div className='box shadow' key={index}>
-            {item.best && (
-              <div className='topbtn'>
-                <button className='btn3'>{item.best}</button>
+      <div className="content flex mtop">
+        {plans.map((item) => (
+          <div className="box shadow" key={item.id}>
+            {item.badge && (
+              <div className="topbtn">
+                <button className="btn3">{item.badge}</button>
               </div>
             )}
-            <h3>{item.plan}</h3>
+
+            <h3>{item.plan_name}</h3>
+
             <h1>
               <span>$</span>
-              {item.price}
+              {parseFloat(item.price)}
             </h1>
-            <p>{item.ptext}</p>
+
+            <p>{item.description}</p>
 
             <ul>
-              {item.list.map((val, key) => {
-                const { icon, text, change } = val
-                return (
-                  <li key={key}>
-                    <label
-                      style={{
-                        background: change === "color" ? "#dc35451f" : "#27ae601f",
-                        color: change === "color" ? "#dc3848" : "#27ae60",
-                      }}
-                    >
-                      {icon}
-                    </label>
-                    <p>{text}</p>
-                  </li>
-                )
-              })}
+              {item.features.map((feature, index) => (
+                <li key={index}>
+                  <label
+                    style={{
+                      background: feature.available
+                        ? "#27ae601f"
+                        : "#dc35451f",
+                      color: feature.available
+                        ? "#27ae60"
+                        : "#dc3848",
+                    }}
+                  >
+                    {feature.available ? (
+                      <i className="fa-solid fa-check"></i>
+                    ) : (
+                      <i className="fa-solid fa-x"></i>
+                    )}
+                  </label>
+
+                  <p>{feature.text}</p>
+                </li>
+              ))}
             </ul>
+
             <button
-              className='btn5'
+              className="btn5"
               style={{
-                background: item.plan === "Standard" ? "#27ae60" : "#fff",
-                color: item.plan === "Standard" ? "#fff" : "#27ae60",
+                background:
+                  item.plan_name === "Standard" ? "#27ae60" : "#fff",
+                color:
+                  item.plan_name === "Standard" ? "#fff" : "#27ae60",
                 cursor: "pointer",
               }}
               onClick={() => {
-                setSelectedPlan(item)
-                setActiveModal("checkout")
+                setSelectedPlan(item);
+                setActiveModal("checkout");
               }}
             >
-              Start {item.plan}
+              Start {item.plan_name}
             </button>
           </div>
         ))}
